@@ -94,3 +94,52 @@ SELECT city FROM north_american_cities
 WHERE Country LIKE 'United States'
 ORDER BY population DESC
 LIMIT 2 OFFSET 2;
+
+--Exercise 6
+--1.Find the domestic and international sales for each movie
+SELECT title, domestic_sales, international_sales FROM movies
+JOIN Boxoffice ON id = movie_id;
+
+--2.Show the sales numbers for each movie that did better internationally rather than domestically
+SELECT title, domestic_sales, international_sales FROM movies
+JOIN Boxoffice ON id = movie_id
+WHERE international_sales > domestic_sales;
+
+--3.List all the movies by their ratings in descending order
+SELECT title, rating FROM movies
+JOIN Boxoffice ON id = movie_id
+ORDER BY rating DESC;
+
+--Exercise 7
+--1.Find the list of all buildings that have employees
+SELECT DISTINCT Building_name FROM Buildings
+JOIN employees ON Building = Building_name;
+
+--2.Find the list of all buildings and their capacity
+SELECT Building_name, capacity FROM Buildings
+
+--3.List all buildings and the distinct employee roles in each building (including empty buildings)
+SELECT DISTINCT Building_name, role FROM Buildings
+LEFT JOIN Employees ON Building = Building_name;
+
+--Exercise 8
+--1.Find the name and role of all employees who have not been assigned to a building
+SELECT name, role FROM employees
+WHERE Building IS NULL;
+
+--2.Find the names of the buildings that hold no employees
+SELECT Building_name FROM Buildings WHERE Building_name NOT IN (SELECT Building_name FROM Buildings
+JOIN Employees ON Building = Building_name);
+
+--Exercise 9
+--1.List all movies and their combined sales in millions of dollars
+SELECT title, (domestic_sales + international_sales)/1000000 "Combined Sales" FROM movies
+JOIN Boxoffice ON Movie_id = Id;
+
+--2.List all movies and their ratings in percent
+SELECT title, rating*10 "Percentage Rating" FROM Boxoffice
+JOIN Movies ON Id = Movie_id;
+
+--3.List all movies that were released on even number years 
+SELECT title, year FROM Movies
+WHERE year%2 = 0;
