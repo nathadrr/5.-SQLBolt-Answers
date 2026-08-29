@@ -143,3 +143,31 @@ JOIN Movies ON Id = Movie_id;
 --3.List all movies that were released on even number years 
 SELECT title, year FROM Movies
 WHERE year%2 = 0;
+
+--Exercise 10
+--1.Find the longest time that an employee has been at the studio
+SELECT max(years_employed) FROM employees;;
+
+--2.For each role, find the average number of years employed by employees in that role
+SELECT role,avg(years_employed) FROM employees
+GROUP BY role;
+
+--3.Find the total number of employee years worked in each building
+SELECT building, sum(years_employed) FROM employees
+GROUP BY building;
+
+--Exercise 11
+--1.Find the number of Artists in the studio (without a HAVING clause)
+SELECT count(role) FROM employees
+WHERE Role LIKE 'Artist';
+
+--2.Find the number of Employees of each role in the studio
+SELECT role, count(role) "Total" FROM employees
+GROUP BY role;
+
+--3.Find the total number of years employed by all Engineers
+SELECT sum(years_employed) FROM employees
+WHERE role LIKE 'Engineer';
+
+--Exercise 12
+
